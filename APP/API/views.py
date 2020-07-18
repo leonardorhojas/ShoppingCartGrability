@@ -1,9 +1,31 @@
 from django.shortcuts import render
 
 # Create your views here.
-from django.contrib.auth.models import User, Group
+
+from django.http.response import JsonResponse
+from rest_framework.parsers import JSONParser
 from rest_framework import viewsets
-from .serializers import UserSerializer, GroupSerializer
+from rest_framework.decorators import api_view
+
+from django.contrib.auth.models import User
+from .serializers import UserSerializer, ProductSerializer, ShoppingCartSerializer, ProductShoppingCarSerializer, \
+    ProfileSerializer
+from .models import Product, ShoopingCart, ProductShoppingCar, Profile
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class ShoppingCartViewSet(viewsets.ModelViewSet):
+    queryset = ShoopingCart.objects.all()
+    serializer_class = ShoppingCartSerializer
+
+
+class ProductShoppingCarViewSet(viewsets.ModelViewSet):
+    queryset = ProductShoppingCar.objects.all()
+    serializer_class = ProductShoppingCarSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -14,9 +36,6 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer

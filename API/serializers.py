@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ["id", "name", "quantity"]
+        fields = ["id", "name", "quantity", "total_cost", "total_taxes"]
         extra_kwargs = {'name': {'required': True}}
 
     def create(self, validated_data):
@@ -32,7 +32,7 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
     class Meta:
         ordering = ['-id']
         model = ShoopingCart
-        fields = ["id", "products"]
+        fields = ["id", "user", "products", "total_cost",  "total_taxes", "total_bought_products"]
         extra_kwargs = {'products': {'required': False}}
 
 

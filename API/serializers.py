@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import ShoopingCart, Product, ProductShoppingCar, Profile
+from .models import ShoopingCart, Product, ProductShoppingCar
 from django.contrib.auth.models import User
 
 
@@ -39,7 +39,7 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
 class ProductShoppingCarSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductShoppingCar
-        fields = ["product", "shoppingcart", "added_products"]
+        fields = ["product", "shoppingcart", "added_quantity"]
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -48,7 +48,3 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'username', 'email']
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = ['user', 'shoppingcart']

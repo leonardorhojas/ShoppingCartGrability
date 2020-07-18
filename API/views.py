@@ -8,9 +8,8 @@ from rest_framework import viewsets
 from rest_framework.decorators import api_view
 
 from django.contrib.auth.models import User
-from .serializers import UserSerializer, ProductSerializer, ShoppingCartSerializer, ProductShoppingCarSerializer, \
-    ProfileSerializer
-from .models import Product, ShoopingCart, ProductShoppingCar, Profile
+from .serializers import UserSerializer, ProductSerializer, ShoppingCartSerializer, ProductShoppingCarSerializer
+from .models import Product, ShoopingCart, ProductShoppingCar
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -36,6 +35,3 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-class ProfileViewSet(viewsets.ModelViewSet):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer

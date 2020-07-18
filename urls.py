@@ -28,7 +28,6 @@ from homepage.views import StaticView
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
-router.register(r'profile', views.ProfileViewSet)
 router.register(r'products', views.ProductViewSet)
 router.register(r'shoppingcart', views.ShoppingCartViewSet)
 router.register(r'productShoppingCar', views.ProductShoppingCarViewSet)

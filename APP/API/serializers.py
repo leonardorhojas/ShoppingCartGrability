@@ -9,7 +9,21 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "quantity"]
         extra_kwargs = {'name': {'required': True}}
 
+    def create(self, validated_data):
+        """
+        Create and return a new `Product` instance, given the validated data.
+        """
+        return Product.objects.create(**validated_data)
 
+    def update(self, instance, validated_data):
+        """
+        Update and return an existing `Snippet` instance, given the validated data.
+        """
+        instance.id = validated_data.get('id', instance.id)
+        instance.name = validated_data.get('name', instance.name)
+        instance.quantity = validated_data.get('quantity', instance.quantity)
+        instance.save()
+        return inst
 class ShoppingCartSerializer(serializers.ModelSerializer):
     products = ProductSerializer(many=True, read_only=True)
 

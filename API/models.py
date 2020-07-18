@@ -2,21 +2,30 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# Product Model
 class Product(models.Model):
+    """
+    Product Model
+    """
+
     name = models.CharField(max_length=255)
     quantity = models.IntegerField(default=0)
     # product__shopping_cart = Required('Product_ShoppingCart')
 
 
-# ShoppingCart Model
 class ShoopingCart(models.Model):
+    """
+    ShoppingCart Model
+    """
+
     user = models.CharField(max_length=255)
     products = models.ManyToManyField(Product, through='ProductShoppingCar', blank=True)
 
 
-# Intermediate Model Product - ShoppingCart
 class ProductShoppingCar(models.Model):
+    """
+    Intermediate Model Product - ShoppingCart
+    """
+
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     shoppingcart = models.ForeignKey(ShoopingCart, on_delete=models.CASCADE)
     added_products = models.IntegerField(default=0)

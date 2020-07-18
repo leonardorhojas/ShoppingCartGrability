@@ -17,13 +17,15 @@ class ProductSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         """
-        Update and return an existing `Snippet` instance, given the validated data.
+        Update and return an existing `Product` instance, given the validated data.
         """
         instance.id = validated_data.get('id', instance.id)
         instance.name = validated_data.get('name', instance.name)
         instance.quantity = validated_data.get('quantity', instance.quantity)
         instance.save()
-        return inst
+        return instance
+
+
 class ShoppingCartSerializer(serializers.ModelSerializer):
     products = ProductSerializer(many=True, read_only=True)
 

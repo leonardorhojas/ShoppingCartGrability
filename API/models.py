@@ -9,8 +9,8 @@ class Product(models.Model):
 
     name = models.CharField(max_length=255)
     quantity = models.IntegerField(default=0)
-    total_cost = models.IntegerField(default=0)
-    total_taxes = models.IntegerField(default=0)
+    total_cost = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    total_taxes = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
 
 class ShoopingCart(models.Model):
@@ -27,9 +27,9 @@ class ShoopingCart(models.Model):
 
     products = models.ManyToManyField(Product, through='ProductShoppingCar', blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    total_cost = models.IntegerField(default=0)
-    total_taxes = models.IntegerField(default=0)
-    total_bought_products = models.IntegerField(default=0)
+    cost = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    total_taxes = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    total_bought_products = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     DRAFT = "DR"
     PENDING = "PD"
     PAID = "PY"

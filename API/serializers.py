@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ["id", "name", "quantity", "total_cost", "total_taxes"]
+        fields = ["id", "name", "quantity", "cost", "total_taxes"]
         extra_kwargs = {'name': {'required': True}}
 
     def create(self, validated_data):

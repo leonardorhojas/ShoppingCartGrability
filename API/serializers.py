@@ -32,19 +32,32 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
     class Meta:
         ordering = ['-id']
         model = ShoopingCart
-        fields = ["id", "user", "products", "total_cost",  "total_taxes", "total_bought_products"]
+        fields = ["id", "user", "products", "total_cost", "total_taxes", "total_bought_products"]
         extra_kwargs = {'products': {'required': False}}
+
+
+def check_added_quantity(data):
+    """
+    Check that the added quantity doesn't be grater than quantity od the product added to the car
+    :return:Not enough products
+    """
+    added_quantity = data['added_quantity']
+    product = Product.objects.get(id=int(data["product"].id))
+    if added_quantity > product.quantity:
+        raise serializers.ValidationError('Not enough products')
+    return data
 
 
 class ProductShoppingCarSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductShoppingCar
         fields = ["product", "shoppingcart", "added_quantity"]
+        validators = [
+            check_added_quantity
+        ]
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ['url', 'username', 'email']
-
-

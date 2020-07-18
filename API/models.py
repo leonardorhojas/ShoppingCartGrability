@@ -9,7 +9,6 @@ class Product(models.Model):
 
     name = models.CharField(max_length=255)
     quantity = models.IntegerField(default=0)
-    # product__shopping_cart = Required('Product_ShoppingCart')
     total_cost = models.IntegerField(default=0)
     total_taxes = models.IntegerField(default=0)
 
@@ -17,6 +16,13 @@ class Product(models.Model):
 class ShoopingCart(models.Model):
     """
     ShoppingCart Model
+    # CHOICES:
+    #     DRAFT = "DR"
+    #     PENDING = "PD"
+    #     PAID = "PY"
+    #     IN_PROGRESS = "IP"
+    #     COMPLETED = "CP"
+    #     CANCELED = "CC"
     """
 
     products = models.ManyToManyField(Product, through='ProductShoppingCar', blank=True)
@@ -24,6 +30,28 @@ class ShoopingCart(models.Model):
     total_cost = models.IntegerField(default=0)
     total_taxes = models.IntegerField(default=0)
     total_bought_products = models.IntegerField(default=0)
+    DRAFT = "DR"
+    PENDING = "PD"
+    PAID = "PY"
+    IN_PROGRESS = "IP"
+    COMPLETED = "CP"
+    CANCELED = "CC"
+    STATUS_CHOICES = [
+        (DRAFT, 'Draft'),
+        (PENDING, 'Pending'),
+        (PAID, 'Paid'),
+        (IN_PROGRESS, 'In_Progress'),
+        (COMPLETED, 'Completed'),
+        (CANCELED, 'Canceled')
+    ]
+    status = models.CharField(
+        max_length=2,
+        choices=STATUS_CHOICES,
+        default=DRAFT
+    )
+
+
+
 
 class ProductShoppingCar(models.Model):
     """

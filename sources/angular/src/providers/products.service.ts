@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { MainService } from './main.service'
 
 
 @Injectable({
@@ -9,19 +8,18 @@ import { HttpClient } from '@angular/common/http';
 export class ProductsService {
 
   constructor(
-    private http: HttpClient
+    private mainService: MainService
   ) { }
-  
-  getAllProducts(){
-    return this.http.get('http://127.0.0.1:8000/api/products/');
+
+  async getAllProducts(params){
+    return this.mainService.get('/products', params);
   }
 
-  getProduct(id: string ){
-    return this.http.get(`http://127.0.0.1:8000/api/products/${id}`);
+  async getProduct(id: string, params ){
+    return this.mainService.get(`/products/${id}`, params);
   }
-  
+
 
 }
 
 
- 

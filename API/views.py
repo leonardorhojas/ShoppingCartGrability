@@ -14,6 +14,7 @@ from .models import Product, ShoopingCart, ProductShoppingCar
 
 
 class ProductViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
@@ -39,4 +40,8 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
-
+class AuthUser():
+    """
+    Auth View for logining user
+    """
+    pass

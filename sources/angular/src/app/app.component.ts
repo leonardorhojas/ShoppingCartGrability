@@ -1,6 +1,5 @@
 import * as $ from 'jquery';
 import { Component, OnInit } from '@angular/core';
-import {ProductsService}  from  '../providers/products.service';
 import { renderFlagCheckIfStmt } from '@angular/compiler/src/render3/view/template';
 
 @Component({
@@ -11,25 +10,14 @@ import { renderFlagCheckIfStmt } from '@angular/compiler/src/render3/view/templa
 export class AppComponent implements OnInit {
   title = 'ShoppinCart';
   public Products;
-constructor(
-  private productsService: ProductsService
-)
+constructor()
 {}
 
 ngOnInit(){
-this.fetchProducts();
 }
 
-async fetchProducts(){
 
-  this.Products = await this.productsService.getAllProducts();
-  console.log(this.Products);
- /*  this.productsService.getAllProducts()
-  .subscribe(products => {
-    console.log(products);
-  }) */
-  
-  }
+public static get API_ENDPOINT(): string { return 'http://127.0.0.1:8000/api'; }
 }
 
 

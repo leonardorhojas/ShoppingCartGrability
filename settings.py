@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'API',
     'homepage',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'urls'
@@ -146,6 +149,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
@@ -154,4 +158,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
-
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:4200",
+    "http://127.0.0.1:4200"
+]

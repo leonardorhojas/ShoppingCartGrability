@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ["id", "name", "quantity", "cost", "total_taxes"]
+        fields = ["id", "picture", "name", "stock", "cost", "taxes", "picture"]
         extra_kwargs = {'name': {'required': True}}
 
     def create(self, validated_data):
@@ -32,7 +32,7 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
     class Meta:
         ordering = ['-id']
         model = ShoopingCart
-        fields = ["id", "user", "products", "total_cost", "total_taxes", "total_bought_products"]
+        fields = ["id", "user", "products", "total_cost", "total_taxes", "products_quantity"]
         extra_kwargs = {'products': {'required': False}}
 
 
@@ -43,7 +43,7 @@ def check_added_quantity(data):
     """
     added_quantity = data['added_quantity']
     product = Product.objects.get(id=int(data["product"].id))
-    if added_quantity > product.quantity:
+    if added_quantity > product.stock:
         raise serializers.ValidationError('Not enough products')
     return data
 
@@ -51,7 +51,7 @@ def check_added_quantity(data):
 class ProductShoppingCarSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductShoppingCar
-        fields = ["product", "shoppingcart", "added_quantity"]
+        fields = ["product", "shopping_cart", "added_quantity", "total_cost", "total_taxes", "unitary_cost"]
         validators = [
             check_added_quantity
         ]

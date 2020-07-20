@@ -14,7 +14,6 @@ from .models import Product, ShoopingCart, ProductShoppingCar
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
